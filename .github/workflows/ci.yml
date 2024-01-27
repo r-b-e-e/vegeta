@@ -114,24 +114,24 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v3
 
-      - name: Create checksums and sign them
-        id: sign
-        run: |
-          set -euo pipefail
+      # - name: Create checksums and sign them
+      #   id: sign
+      #   run: |
+      #     set -euo pipefail
 
-          mkdir dist
-          mv vegeta*/* dist/
-          cd dist
+      #     mkdir dist
+      #     mv vegeta*/* dist/
+      #     cd dist
 
-          VERSION=${GITHUB_REF#refs/tags/v}
-          CHECKSUMS=vegeta_${VERSION}_checksums.txt
-          sha256sum * > $CHECKSUMS
+      #     VERSION=${GITHUB_REF#refs/tags/v}
+      #     CHECKSUMS=vegeta_${VERSION}_checksums.txt
+      #     sha256sum * > $CHECKSUMS
 
-          echo "${{ secrets.VEGETA_GPG_KEY }}" | gpg --batch --yes --pinentry-mode loopback --import
-          gpg --export --armor > vegeta_${VERSION}_pubkey.asc
-          gpg --detach-sign -a $CHECKSUMS
+      #     echo "${{ secrets.VEGETA_GPG_KEY }}" | gpg --batch --yes --pinentry-mode loopback --import
+      #     gpg --export --armor > vegeta_${VERSION}_pubkey.asc
+      #     gpg --detach-sign -a $CHECKSUMS
 
-          echo "name=${VERSION}" >> $GITHUB_OUTPUT
+      #     echo "name=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Generate release notes
         id: release_notes
