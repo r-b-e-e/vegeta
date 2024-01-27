@@ -151,7 +151,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ steps.sign.outputs.version }}
-          body_path: ${{ github.workspace }}/release-notes.txt
+          # body_path: ${{ github.workspace }}/release-notes.txt
           files: |
             dist/*
           tag_name: ${{ steps.sign.outputs.version }}
